@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event Name:</strong>
+  <%= @event.name %>
+</p>
+<h2>Countdown Timer</h2>
+<h1><b id="days">..</b> : <b id="hours">..</b> : <b id="min">..</b> :  <b id="sec">..</b></h1>
+<h5><b>DAYS</b>  <b>HOURS</b>  <b>MINUTES</b>  <b>SECONDS</b></h5>
+<p>
+  <!-- <strong>Date time:</strong> -->
+  <p id="date"><%= @event.date_time %></p>
+</p>
+
+<%#= link_to 'Edit', edit_event_path(@event) %>
+<%= link_to 'Back', events_path %>
+
+<script>
+	var daysHandle = document.getElementById('days');
+	var hoursHandle = document.getElementById('hours');
+	var minutesHandle = document.getElementById('min');
+	var secondsHandle = document.getElementById('sec');
+	var dateHandle = document.getElementById('date');
+	var i = (new Date(dateHandle.innerHTML) - new Date())/1000;
+
+	setInterval(function(){
+		var days = Math.floor(i/86400);
+		var hours = Math.floor((i%86400)/3600);
+		var minutes = Math.floor(((i%86400)%3600)/60);
+		var seconds = Math.floor((i%86400)%3600)%60;
+		daysHandle.innerHTML = prependZero(days);
+		hoursHandle.innerHTML = prependZero(hours);
+		minutesHandle.innerHTML = prependZero(minutes);
+		secondsHandle.innerHTML = prependZero(seconds);
+		i--;
+
+	}, 1000);
+	
+	function prependZero(value){
+		return value < 10 ? `0${value}`: value
+	}
+</script>

@@ -1,0 +1,51 @@
+<%= form_with(model: event, local: true) do |form| %>
+  <% if event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :event_name %><br/>
+    <span id="nameError"></span>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_time %>
+    <%= form.datetime_select :date_time, id: :event_date_time %><br/>
+    <span id="dateTimeError"></span>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+<script>
+var nameHandle = document.getElementById('event_name');
+var nameErrorHandle = document.getElementById('nameError');
+//var dateTimeHandle = document.getElementById('event_date_time');
+//var dateTimeErrorHandle = document.getElementById('dateTimeError');
+
+nameHandle.addEventListener('focus', function(){
+    nameErrorHandle.innerHTML = "Enter event name";
+}, false);
+nameHandle.addEventListener('blur', function(){
+  if(nameHandle.value === ""){
+    nameErrorHandle.innerHTML = "Event can't be blank";
+  }else{
+    nameErrorHandle = "";
+  }
+}, false);
+
+// dateTimeHandle.addEventListener('change', function(){
+//   dateTimeErrorHandle.innerHTML = "select date and time";
+// }, false);
+  
+</script>
